@@ -33,8 +33,27 @@ def star1() -> int:
     return (closest_time - timestamp) * closest_id
 
 
+def nsn(number1: int, number2: int) -> int:
+    maximum = max(number1, number2)
+    minimum = min(number1, number2)
+    number = maximum
+    while number % minimum != 0:
+        number += maximum
+
+    return number
+
+
 def star2() -> int:
-    return 0
+    result = busses[0]
+    adding = busses[0]
+    for i in range(1, len(busses)):
+        buss_id = busses[i]
+        difference = busses_index[buss_id]
+        while (result + difference) % buss_id != 0:
+            result += adding
+        adding = nsn(adding, buss_id)
+
+    return result
 
 
 if __name__ == "__main__":
